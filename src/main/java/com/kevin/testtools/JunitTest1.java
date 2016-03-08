@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * @WebAppConfiguration http://stackoverflow.com/questions/19135492/webapplicationcontext-doesnt-autowire
+ * 详细参考：http://jinnianshilongnian.iteye.com/blog/2004660
  * @author Administrator
  *
  */
