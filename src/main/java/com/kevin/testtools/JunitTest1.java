@@ -19,6 +19,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * @WebAppConfiguration http://stackoverflow.com/questions/19135492/webapplicationcontext-doesnt-autowire
+ * @author Administrator
+ *
+ */
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
