@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -37,9 +38,11 @@ public class JunitTest1 {
 	private WebApplicationContext wac;
 	
 	
-	private MockMvc mockMvc;
+	MockMvc mockMvc;
+	DefaultMockMvcBuilder mvcBuilder;
 	@Before
 	public void setup(){
+		mvcBuilder = webAppContextSetup(wac);
 		mockMvc = webAppContextSetup(wac).build();
 	}
 	
