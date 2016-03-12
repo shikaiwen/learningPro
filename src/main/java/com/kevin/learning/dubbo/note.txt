@@ -16,6 +16,7 @@ dubbo非常灵活，既可以用点对点连接也可以集群
 
 监控要的文件：http://pan.baidu.com/share/link?shareid=3512448993&uk=3812091006&adapt=pc&fr=ftw#path=%252Fdubbo
 
+http://buges.cn/post/28.html
 
 spring的dubbo源码解读：http://blog.kazaff.me/2015/01/26/dubbo%E5%A6%82%E4%BD%95%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%8B%BF%E5%88%B0bean/
 RESTFUL风格：http://dangdangdotcom.github.io/dubbox/rest.html
