@@ -173,6 +173,14 @@
 </dependency>
  
  
+ <dependency>
+	<groupId>ognl</groupId>
+	<artifactId>ognl</artifactId>
+	<version>3.0.8</version>
+</dependency>
+ 
+ 
+ 
  <!-- 邮件发送 -->
 <!-- <dependency>
 	<groupId>javamail</groupId>
