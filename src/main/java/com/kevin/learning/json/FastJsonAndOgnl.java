@@ -20,6 +20,9 @@ public class FastJsonAndOgnl {
 		
 		Map map = JSON.parseObject(str, Map.class);
 		
-		Object obj = Ognl.getValue("data.data.dwList", map);
+		Object obj = Ognl.getValue("data.data.dwList[0]", map);
+		
+		
+		
 	}
 }
