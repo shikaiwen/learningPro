@@ -81,7 +81,7 @@ public class SimpleSMTPSender {
                                 
             Transport trans=mailConnection.getTransport("smtp");
             String username="googlevsbing@126.com";
-            String pw="shikaiwen123456";
+            String pw="shikaiwen666666";
             //邮件服务器名,用户名，密码
             trans.connect("smtp.126.com", username,  pw);
             trans.sendMessage(msg, msg.getAllRecipients());

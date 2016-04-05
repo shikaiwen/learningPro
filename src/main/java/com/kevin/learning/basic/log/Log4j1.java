@@ -35,7 +35,7 @@ public class Log4j1 {
 		logger.debug("start main process ...");
 		logger.debug(" compute salary ");
 		
-		logger.error(" error when compute salary ");
+//		logger.error(" error when compute salary ");
 		try{
 			int a = 100 / 0;
 		}catch(Exception e){
