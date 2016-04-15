@@ -27,6 +27,8 @@ public class ParamProblem {
 		
 		String resultStr = invoke(map);
 		System.out.println(resultStr);
+		
+		
 	}
 	
 	public static  String invoke(Map<String,String> params) throws Exception, SecurityException{

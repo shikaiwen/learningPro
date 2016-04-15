@@ -25,4 +25,11 @@ public class FastJsonAndOgnl {
 		
 		
 	}
+	
+	
+	@Test
+	public void sourceT1(){
+		
+	}
+	
 }

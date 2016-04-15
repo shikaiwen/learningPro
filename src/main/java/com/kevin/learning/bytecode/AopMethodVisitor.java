@@ -1,5 +1,7 @@
 package com.kevin.learning.bytecode;
 
+import java.beans.IndexedPropertyDescriptor;
+
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
@@ -7,6 +9,7 @@ public class AopMethodVisitor extends MethodVisitor implements Opcodes{
 
 	public AopMethodVisitor(int api, MethodVisitor mv) {
 		super(api, mv);
+		
 	}
 	
 	
