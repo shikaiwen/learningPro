@@ -135,7 +135,7 @@ public class FileAnalysizer {
 		List<Object> poolList = new ArrayList<Object>();
 		
 		while (true) {
-			
+//			++count;
 			if ( ++count == numberOfCP) break;
 			
 			int tag = readNBytes(is, 1)[0];
@@ -248,12 +248,84 @@ public class FileAnalysizer {
 		// 两个字节的 access_flag
 		short accessFlag = readShort(is);
 		
+		System.out.println(accessFlag);
 		//读取 thisclass:u2 superclass:u2 
-		
+		short thisclassIndex = readShort(is);
+		short superclassIndex = readShort(is);
 		//读取 interface count:u2 ,interface[u2]
+		short interfaceCount = readShort(is);
 		
+		System.out.println(interfaceCount);
+		int [] interfaceIndexArr = new int[interfaceCount];
+		
+		for(int i=0;i<interfaceIndexArr.length;i++){
+			interfaceIndexArr[i] = readShort(is);
+		}
 		
 		//读取 Fields
+		int fieldsCount = readShort(is);
+		
+		//读取field1
+		short fAccess = readShort(is);
+		short fNameIndex = readShort(is);
+		short discriptorIndex = readShort(is);
+		short attrCount = readShort(is);
+		//field1 属性
+		short constAttrName =  readShort(is);
+		int contAttrLen = readInt(is);
+		short valIndex = readShort(is);
+		
+		
+		//读取field2
+		short f2Access = readShort(is);
+		short f2NameIndex = readShort(is);
+		short f2DiscriptorIndex = readShort(is);
+		short f2AttrCount = readShort(is);
+		
+		
+		
+		//分析method
+		short methodCount = readShort(is);
+		
+		
+		//读取第一个方法
+		short m1AccessFalg = readShort(is);
+		short m1NameIndex = readShort(is);
+		short m1DescriptorIndex = readShort(is);
+		
+		short m1AttrCount = readShort(is);
+		
+		//attr1 的属性名称第一个属性是Code
+		short m1Attr1NameIndex = readShort(is);
+		
+		int attr1Len = readInt(is);
+		short m1MaxStack = readShort(is);
+		short m1MaxLocals = readShort(is);
+		int codeLen = readInt(is);
+		byte [] code = readNBytes(is, codeLen);
+		
+		short exceptionTableLen = readShort(is);
+		
+		short m1mAttrCount = readShort(is);
+		
+		short meattr1Index = readShort(is);
+		int meaAttr1Len = readInt(is); // LineNumberTable
+		short lineNumberTable1Len = readShort(is);
+		
+		short codeLine1 = readShort(is);
+		short sourceLine1 = readShort(is);
+		
+		short codeLine2 = readShort(is);
+		short sourceLine2 = readShort(is);
+		
+		short codeLine3 = readShort(is);
+		short sourceLine3 = readShort(is);
+		
+		
+		short m1mAttr2Index = readShort(is);
+		
+		
+		byte [] skip12Data = readNBytes(is, 12);
 		
 		
 		
@@ -319,7 +391,7 @@ public class FileAnalysizer {
 			e.printStackTrace();
 		}
 		Assert.isTrue( read == needLen , "尝试读取 " + needLen +" 字节，实际读取 " + read + "字节");
-		int result = data[0] << 24 & data[1] << 16 & data[2] << 8 & data[3];
+		int result = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
 		return result;
 	}
 	
