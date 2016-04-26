@@ -11,6 +11,11 @@ import org.junit.Test;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
+/**
+ * http://www.csyor.com/174.html
+ * @author root
+ *
+ */
 public class MainLearn {
 
 	
