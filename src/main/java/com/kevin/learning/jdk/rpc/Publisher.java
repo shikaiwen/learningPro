@@ -10,6 +10,9 @@ import java.rmi.registry.LocateRegistry;
  * http://www.cnblogs.com/leslies2/archive/2011/05/20/2051844.html
  * @author root
  *
+ *	RPC 原理分析http://www.jianshu.com/p/f4f789846fde
+ *  特别好：http://my.oschina.net/xianggao/blog/634968
+ * dubbo的简单解析：http://aliapp.blog.51cto.com/8192229/1325655
  */
 
 public class Publisher {
