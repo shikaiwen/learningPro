@@ -9,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,17 +19,76 @@ import org.junit.Test;
 
 public class GetTableInDB {
 
+	//数据库定义
+	static enum DBInfo{
+		//127.0.0.1
+		DBInfo("localhost","3306","root","root");
+		String host;String port;String username;String password;
+	    private DBInfo(String host, String port,String username,String password) {
+	        this.host = host;
+	        this.port = port;
+	        this.username=username;
+	        this.password=password;
+	    }
+		public String getPort() { return port;}
+		public String getHost() { return host; }
+		public String getUsername() { return username;}
+		public String getPassword() { return password; }
+		
+	}
 	
-	String searchTableName = "USER_INFO".toUpperCase();
 	
-	String rootUrl = "jdbc:mysql://localhost:3306";
-	String username = "root";
-	String password = "root";
-//	String rootUrl = "jdbc:mysql://172.16.7.232:33096";
-//	String username = "root";
-//	String password = "passwd32";
+	static String searchTableName = "USER_INFO".toUpperCase();
 	
-	Connection rootConn = null;
+	static String rootUrl = "jdbc:mysql://localhost:3306";
+	static String username = "root";
+	static String password = "root";
+	
+	
+	static Connection rootConn = null;
+	
+	/**
+	 * 默认查询两个库
+	 * db=1：开发库  db=2：测试库，如不传则查两个
+	 * -t ：查询某个表名，精确查找
+	 * -tt ：查询某个表名，模糊查找
+	 * 
+	 * 
+	 */
+	public static void main(String[] args) throws Throwable {
+		
+//		List<String> commandOption = Arrays.asList("-t","-tt");
+//		List<String> argsList = Arrays.asList(args);
+		
+		
+		DBInfo[] dbInfArr = DBInfo.values();
+		
+		for(int i=0;i<dbInfArr.length;i++){
+			DBInfo info = dbInfArr[i];
+			String url = "jdbc:mysql://"+info.getHost()+":" + info.getPort();
+			Connection conn = getConn(url, info.getUsername(), info.getPassword());
+			if(conn == null) return;
+			rootConn = conn;
+			
+			for(int j=0;j<args.length;j++){
+				
+				String opt = args[j];
+				
+				if("-t".equals(opt)){
+					String tbname = args[j+1];
+					searchTable(tbname);
+				}
+				
+				if("-tt".equals(opt)){
+					String tbname = args[j+1];
+					searchTable(tbname, true);
+				}
+				
+			}
+			
+		}
+		
+	}
 	
 	@Before
 	public void before(){
@@ -36,7 +96,7 @@ public class GetTableInDB {
 	}
 	
 	
-	@Test@Ignore
+	@Test
 	public void getTable(){
 		String tableName = "t_product";
 		searchTable(tableName);
@@ -45,7 +105,7 @@ public class GetTableInDB {
 	
 	
 	
-	@Test
+	@Test@Ignore
 	public void searchCol(){
 		searchCol("email");
 	}
@@ -225,11 +285,11 @@ public class GetTableInDB {
 	}
 
 	
-	public void searchTable(String tableName){
-		searchTable(tableName,true);
+	public static void searchTable(String tableName){
+		searchTable(tableName,false);
 	}
 	
-	public void searchTable(String tableName,boolean definite){
+	public static void searchTable(String tableName,boolean definite){
 		
 		tableName = tableName.toUpperCase();
 		List<String> dbList = getAllDB(rootUrl,username,password);
@@ -240,7 +300,7 @@ public class GetTableInDB {
 			for(Iterator<String>tbIter=tableList.iterator();tbIter.hasNext();){
 				String tb = tbIter.next();
 				
-				if(definite){
+				if(!definite){
 					if(tb.equals( tableName )){
 						System.out.println(" FOUND TABLE " + tableName + " IN DB " + dbName );
 					}
@@ -254,7 +314,7 @@ public class GetTableInDB {
 	}
 	
 	
-	public List<String> getTablesInDB(String dbName){
+	public  static List<String> getTablesInDB(String dbName){
 		try{
 //			Connection conn = getConn(rootUrl + "/" + dbName, username, password);
 //			Statement stmt = rootConn.createStatement();
@@ -273,7 +333,7 @@ public class GetTableInDB {
 		return null;
 	}
 	
-	public List<String> getAllDB(String rootUrl,String username,String password){
+	public static List<String> getAllDB(String rootUrl,String username,String password){
 		try{
 			
 			List<String> dbList = new ArrayList<String>();
@@ -303,7 +363,7 @@ public class GetTableInDB {
 		return null;
 	}
 	
-	public void switchToDB(String dbName){
+	public static void switchToDB(String dbName){
 		try {
 			boolean re = rootConn.createStatement().execute("use " + dbName);
 //			System.out.println("siwtch to " + dbName + ", result " + re);
@@ -354,41 +414,10 @@ public class GetTableInDB {
 		}
 	}
 	
-	public static void main(String[] args) throws Throwable {
-
-		
-		GetTableInDB d = new GetTableInDB();
-		Connection rootConn = d.getConn(d.rootUrl + "/information_schema", d.username, d.password);
-		Statement stmt = rootConn.createStatement();
-		
-		boolean res = stmt.execute("use ogms");
-		
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("select * from member_recharge_record where 1=1 ");
-		sql.append(" and ( member_id like  CONCAT(CONCAT('%',?) ,'%')" );
-		sql.append(" or bank_id like  CONCAT(CONCAT('%',?) ,'%')"
-				+ ")");
-		
-		PreparedStatement pstmt = rootConn.prepareStatement(sql.toString());
-		pstmt.setObject(1, "20150816091054100001");
-		pstmt.setString(2, "20150916161252100002");
-		
-		
-		
-		ResultSet tableResultSet = pstmt.executeQuery();//stmt.executeQuery("show tables");
-		  
-		List<String> tableList = new ArrayList<String>();
-		while(tableResultSet.next()){
-			String name = tableResultSet.getString(1);
-			tableList.add(name.toUpperCase());
-		}
-		
-
-	}
 	
 	
-	public  Connection getConn(String url,String name,String password) {
+	
+	public  static Connection getConn(String url,String name,String password){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
