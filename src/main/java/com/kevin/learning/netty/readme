@@ -1,0 +1,4 @@
+
+这个版本是3的终极版也是4的最初alpha版：http://seeallhearall.blogspot.de/2012/05/netty-tutorial-part-1-introduction-to.html
+
+Channel 、 ChannelFactory、Pipeline、ChannelEvent、 ChannelHandler

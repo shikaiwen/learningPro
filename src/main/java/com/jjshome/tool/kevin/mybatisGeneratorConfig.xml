@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+
+    <!-- <classPathEntry location="D:\repo\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" /> -->
+
+      <properties resource="mybatis-gen.properties"/>   
+        
+    <context id="context1" targetRuntime="MyBatis3">
+    
+    <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin> -->
+    
+    <!-- 对Example文件重命名，其实没必要 -->
+    <!-- <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+    	 <property name="searchString" value="Example$" />  
+            <property name="replaceString" value="Criteria" /> 
+    </plugin> -->
+    
+    <!-- 自定义插件 -->
+    <!-- <plugin type="com.jjshome.tool.kevin.JavaClientPlugin"></plugin> -->
+    
+    
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="${jdbc.url}"
+            userId="${jdbc.username}" 
+            password="${jdbc.password}" />
+
+	<javaModelGenerator targetPackage="${java.package.model}"
+		targetProject="${codegen.dir}">
+		<property name="enableSubPackages" value="true" />
+		<property name="trimStrings" value="true" />
+	</javaModelGenerator>
+
+
+	<sqlMapGenerator targetPackage="${java.package.mapper.xml}"
+		targetProject="${codegen.dir}">
+		<property name="enableSubPackages" value="true" />
+	</sqlMapGenerator>
+
+	<javaClientGenerator targetPackage="${java.package.mapper.client}"
+		targetProject="${codegen.dir}" type="XMLMAPPER">
+		<property name="enableSubPackages" value="true" />
+	</javaClientGenerator>
+
+
+	
+	
+<!--     <table schema="${jdbc.db}" tableName="send_record" />  worker -->
+
+    <!-- <table schema="${jdbc.db}" tableName="send_record_detail" /> -->
+    <!-- <table schema="${jdbc.db}" tableName="send_record" /> -->
+    <table schema="${jdbc.db}" tableName="org" />
+    <!-- <table schema="${jdbc.db}" tableName="worker" /> -->
+    <!-- <table schema="${jdbc.db}" tableName="zb_role" /> -->
+        
+             <!--<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+
+     <!--    <table tableName="CTAS_FEE_BASE" domainObjectName="FeeBase"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnRenamingRule searchString="^D_"
+                                replaceString=""/> -->
+        
+        
+    </context>
+</generatorConfiguration>

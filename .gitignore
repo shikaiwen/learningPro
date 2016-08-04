@@ -10,3 +10,7 @@
 
 **/target/*
 /target/
+
+#idea files
+.idea
+*.iml
