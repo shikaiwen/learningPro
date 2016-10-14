@@ -18,7 +18,7 @@
     </plugin> -->
     
     <!-- 自定义插件 -->
-    <!-- <plugin type="com.jjshome.tool.kevin.JavaClientPlugin"></plugin> -->
+    <!-- <plugin type="JavaClientPlugin"></plugin> -->
     
     
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"

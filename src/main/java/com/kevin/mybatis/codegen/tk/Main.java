@@ -1,4 +1,4 @@
-package com.jjshome.tool.kevin;
+package com.kevin.mybatis.codegen.tk;
 
 import java.io.File;
 import java.io.InputStream;
